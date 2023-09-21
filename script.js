@@ -20,7 +20,31 @@ Constraints:
     Only one valid answer exists. 
 Follow-up: Can you come up with an algorithm that is less than O(n2) time complexity?
 */
-function twoSum(nums, target) {
+/*
+function Given an integer x, return true if x is a
+palindrome
+, and false otherwise.
+
+ 
+
+Example 1:
+
+Input: x = 121
+Output: true
+Explanation: 121 reads as 121 from left to right and from right to left.
+
+Example 2:
+
+Input: x = -121
+Output: false
+Explanation: From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.
+
+Example 3:
+
+Input: x = 10
+Output: false
+Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
+(nums, target) {
   // Создаем пустой объект с именем numIndices для хранения чисел как ключей и их индексов как значений.
   const numIndices = {};
 
@@ -46,3 +70,35 @@ function twoSum(nums, target) {
 }
 
 console.log(twoSum([2, 7, 11, 15], 9));
+
+*/
+
+// #2
+/*
+Given an integer x, return true if x is a
+palindrome, and false otherwise.
+Example 1:
+Input: x = 121
+Output: true
+Explanation: 121 reads as 121 from left to right and from right to left.
+Example 2:
+Input: x = -121
+Output: false
+Explanation: From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome.
+Example 3:
+Input: x = 10
+Output: false
+Explanation: Reads 01 from right to left. Therefore it is not a palindrome.
+*/
+var isPalindrome = function (x) {
+  const arr = x.toString().split("");
+  console.log(arr);
+
+  const revArr = arr.slice().reverse();
+  console.log(revArr);
+
+  return arr.join("") === revArr.join("") ? true : false;
+};
+
+console.log(isPalindrome(121));
+console.log(isPalindrome(-121));
