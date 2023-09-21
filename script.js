@@ -123,6 +123,7 @@ Roman numerals are usually written largest to smallest from left to right. Howev
     C can be placed before D (500) and M (1000) to make 400 and 900.
 Given a roman numeral, convert it to an integer.
 */
+/*
 var romanToInt = function (s) {
   const roman = {
     I: 1,
@@ -151,3 +152,25 @@ var romanToInt = function (s) {
 };
 
 console.log(romanToInt("MCMXCIV"));
+*/
+
+// #4
+
+/*
+Write a function to find the longest common prefix string amongst an array of strings.
+If there is no common prefix, return an empty string "".
+*/
+var longestCommonPrefix = function (strs) {
+  if (!strs.length) return "";
+  let longerstCommonPrefix = "";
+  for (let i = 0; i < strs[0].length; i++) {
+    let char = strs[0][i];
+    if (!char) return "";
+    if (strs.every((str) => str[i] === char)) {
+      longerstCommonPrefix += char;
+    } else break;
+  }
+  return longerstCommonPrefix;
+};
+
+console.log(longestCommonPrefix(["flower", "flow", "flight"]));
