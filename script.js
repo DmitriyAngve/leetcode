@@ -204,6 +204,7 @@ Write a function expect that helps developers test their code. It should take in
     toBe(val) accepts another value and returns true if the two values === each other. If they are not equal, it should throw an error "Not Equal".
     notToBe(val) accepts another value and returns true if the two values !== each other. If they are equal, it should throw an error "Equal".
 */
+/*
 var expect = function (val) {
   return {
     toBe: function (exp) {
@@ -221,6 +222,30 @@ var expect = function (val) {
       }
     },
   };
+};
+*/
+
+// #6
+/*
+Write a function createCounter. It should accept an initial integer init. It should return an object with three functions.
+The three functions are:
+    increment() increases the current value by 1 and then returns it.
+    decrement() reduces the current value by 1 and then returns it.
+    reset() sets the current value to init and then returns it.
+*/
+var createCounter = function (init) {
+  let pres = init;
+  function increment() {
+    return ++pres;
+  }
+  function decrement() {
+    return --pres;
+  }
+  function reset() {
+    return (pres = init);
+  }
+
+  return { increment, decrement, reset };
 };
 
 // BINARY SEARCH
