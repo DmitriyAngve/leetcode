@@ -160,6 +160,7 @@ console.log(romanToInt("MCMXCIV"));
 Write a function to find the longest common prefix string amongst an array of strings.
 If there is no common prefix, return an empty string "".
 */
+/*
 var longestCommonPrefix = function (strs) {
   if (!strs.length) return "";
   let longerstCommonPrefix = "";
@@ -174,3 +175,151 @@ var longestCommonPrefix = function (strs) {
 };
 
 console.log(longestCommonPrefix(["flower", "flow", "flight"]));
+*/
+
+/*
+Given two strings s and t, return true if s is a subsequence of t, or false otherwise.
+A subsequence of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (i.e., "ace" is a subsequence of "abcde" while "aec" is not).
+*/
+/*
+var isSubsequence = function (s, t) {
+  let i = 0;
+  let j = 0;
+  while (i < s.length && j < t.length) {
+    if (s[i] === t[j]) {
+      i++;
+    }
+    j++;
+  }
+  return i === s.length;
+};
+
+console.log(isSubsequence("abc", "ahbgdc"));
+console.log(isSubsequence("axc", "ahbgdc"));
+*/
+
+//# 5
+/*
+Write a function expect that helps developers test their code. It should take in any value val and return an object with the following two functions.
+    toBe(val) accepts another value and returns true if the two values === each other. If they are not equal, it should throw an error "Not Equal".
+    notToBe(val) accepts another value and returns true if the two values !== each other. If they are equal, it should throw an error "Equal".
+*/
+/*
+var expect = function (val) {
+  return {
+    toBe: function (exp) {
+      if (val === exp) {
+        return true;
+      } else {
+        throw new Error("Not Equal");
+      }
+    },
+    notToBe: function (exp) {
+      if (val !== exp) {
+        return true;
+      } else {
+        throw new Error("Equal");
+      }
+    },
+  };
+};
+*/
+
+// #6
+/*
+Write a function createCounter. It should accept an initial integer init. It should return an object with three functions.
+The three functions are:
+    increment() increases the current value by 1 and then returns it.
+    decrement() reduces the current value by 1 and then returns it.
+    reset() sets the current value to init and then returns it.
+*/
+var createCounter = function (init) {
+  let pres = init;
+  function increment() {
+    return ++pres;
+  }
+  function decrement() {
+    return --pres;
+  }
+  function reset() {
+    return (pres = init);
+  }
+
+  return { increment, decrement, reset };
+};
+
+// BINARY SEARCH
+// #1
+/*
+Given a m x n matrix grid which is sorted in non-increasing order both row-wise and column-wise, return the number of negative numbers in grid.
+Example 1:
+Input: grid = [[4,3,2,-1],[3,2,1,-1],[1,1,-1,-2],[-1,-1,-2,-3]]
+Output: 8
+Explanation: There are 8 negatives number in the matrix.
+Example 2:
+Input: grid = [[3,2],[1,0]]
+Output: 0
+*/
+/*
+var countNegatives = function (grid) {
+  const combinedArray = [].concat(...grid).sort((a, b) => a - b);
+  console.log(combinedArray);
+  let count = 0;
+  for (let i = 0; i < combinedArray.length; i++) {
+    if (combinedArray[i] < 0) {
+      count++;
+    }
+  }
+  return count;
+};
+*/
+/*
+var countNegatives = function (grid) {
+  const rows = grid.length;
+  const cols = grid[0].length;
+  let count = 0;
+  let row = 0;
+  let col = cols - 1;
+
+  while (row < rows && col >= 0) {
+    if (grid[row][col] < 0) {
+      count += rows - row;
+      col--;
+    } else {
+      row++;
+    }
+  }
+  return count;
+};
+
+*/
+var countNegatives = function (grid) {
+  let count = 0;
+  const cols = grid[0].length; // в этой переменной храним количество столбцов в матрице (длина первой строки в матрице)
+  for (const row of grid) {
+    // цикл, который итерируется по каждой строке матрицы (назовем их row)
+    // указатели для бинарного поиска
+    let left = 0; // начало строки
+    let right = cols - 1; // конец строки
+    // запускается цикл, который вычисляется пока левая часть или равна правой
+    while (left <= right) {
+      const mid = Math.floor((left + right) / 2); // средний индекс
+      if (row[mid] < 0) {
+        count += right - mid + 1;
+        right = mid - 1;
+      } else {
+        left = mid + 1; // это чтобы продолжить поиск в левой части строки
+      }
+    }
+    return count;
+  }
+};
+
+console.log(
+  countNegatives([
+    [4, 3, 2, -1],
+    [3, 2, 1, -1],
+    [1, 1, -1, -2],
+    [-1, -1, -2, -3],
+  ])
+);
