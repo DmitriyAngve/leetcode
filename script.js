@@ -233,6 +233,7 @@ The three functions are:
     decrement() reduces the current value by 1 and then returns it.
     reset() sets the current value to init and then returns it.
 */
+/*
 var createCounter = function (init) {
   let pres = init;
   function increment() {
@@ -247,7 +248,7 @@ var createCounter = function (init) {
 
   return { increment, decrement, reset };
 };
-
+*/
 // BINARY SEARCH
 // #1
 /*
@@ -292,7 +293,7 @@ var countNegatives = function (grid) {
   return count;
 };
 
-*/
+*/ /*
 var countNegatives = function (grid) {
   let count = 0;
   const cols = grid[0].length; // в этой переменной храним количество столбцов в матрице (длина первой строки в матрице)
@@ -323,3 +324,17 @@ console.log(
     [-1, -1, -2, -3],
   ])
 );
+*/
+
+// #2
+/*
+Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.
+*/
+var missingNumber = function (nums) {
+  const n = nums.length;
+  const expectedSum = (n * (n + 1)) / 2;
+  const actualSum = nums.reduce((acc, num) => acc + num, 0);
+  return expectedSum - actualSum;
+};
+
+console.log(missingNumber([3, 0, 1]));
