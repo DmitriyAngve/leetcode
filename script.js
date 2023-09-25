@@ -340,14 +340,14 @@ var missingNumber = function (nums) {
 
 console.log(missingNumber([3, 0, 1]));
 */
-
+/*
 var missingNumber = function (nums) {
   const arr = nums.sort((a, b) => a - b);
   let left = 0;
   let rigth = nums.length - 1;
   while (left <= rigth) {
     const middle = Math.floor((left + rigth) / 2);
-    if (arr[middle] == middle) {
+    if (arr[middle] === middle) {
       left = middle + 1;
     } else {
       rigth = middle - 1;
@@ -357,3 +357,31 @@ var missingNumber = function (nums) {
 };
 
 console.log(missingNumber([9, 6, 4, 2, 3, 5, 7, 0, 1]));
+*/
+
+// #3
+
+/*
+Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.
+*/
+var search = function (nums, target) {
+  let left = 0;
+  let right = nums.length - 1;
+
+  while (left <= right) {
+    const middle = Math.floor((left + right) / 2);
+
+    if (nums[middle] === target) {
+      return middle;
+    }
+
+    if (target < nums[middle]) {
+      right = middle - 1;
+    } else {
+      left = middle + 1;
+    }
+  }
+  return -1;
+};
+
+console.log(search([-1, 0, 3, 5, 9, 12], 9));
