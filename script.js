@@ -453,6 +453,7 @@ Output: "x"
 Explanation: There are no characters in letters that is lexicographically greater than 'z' so we return letters[0].
 
 */
+/*
 var nextGreatestLetter = function (letters, target) {
   if (letters[0] > target || target >= letters[letters.length - 1]) {
     return letters[0];
@@ -476,3 +477,39 @@ var nextGreatestLetter = function (letters, target) {
 console.log(nextGreatestLetter(["c", "f", "j"], "a"));
 console.log(nextGreatestLetter(["c", "f", "j"], "c"));
 console.log(nextGreatestLetter(["x", "x", "y", "y"], "z"));
+*/
+
+// #6
+/*
+You are given a 0-indexed integer array nums and a target element target.
+
+A target index is an index i such that nums[i] == target.
+
+Return a list of the target indices of nums after sorting nums in non-decreasing order. If there are no target indices, return an empty list. The returned list must be sorted in increasing order.
+*/
+
+function binarySearch(lists, sorted, low, high, target) {
+  if (low > high) return;
+
+  const mid = low + Math.floor((high - low) / 2);
+
+  if (sorted[mid] === target) {
+    lists.push(mid);
+  }
+
+  binarySearch(lists, sorted, low, mid - 1, target);
+  binarySearch(lists, sorted, mid + 1, high, target);
+}
+
+var targetIndices = function (nums, target) {
+  let result = [];
+  nums.sort((a, b) => a - b);
+  if (!nums.includes(target)) return [];
+
+  binarySearch(result, nums, 0, nums.length - 1, target);
+  return result.sort((a, b) => a - b);
+};
+
+console.log(targetIndices([1, 2, 5, 2, 3], 2));
+console.log(targetIndices([1, 2, 5, 2, 3], 3));
+console.log(targetIndices([1, 2, 5, 2, 3], 5));
