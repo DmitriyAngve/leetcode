@@ -330,6 +330,7 @@ console.log(
 /*
 Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.
 */
+/*
 var missingNumber = function (nums) {
   const n = nums.length;
   const expectedSum = (n * (n + 1)) / 2;
@@ -338,3 +339,21 @@ var missingNumber = function (nums) {
 };
 
 console.log(missingNumber([3, 0, 1]));
+*/
+
+var missingNumber = function (nums) {
+  const arr = nums.sort((a, b) => a - b);
+  let left = 0;
+  let rigth = nums.length - 1;
+  while (left <= rigth) {
+    const middle = Math.floor((left + rigth) / 2);
+    if (arr[middle] == middle) {
+      left = middle + 1;
+    } else {
+      rigth = middle - 1;
+    }
+  }
+  return left;
+};
+
+console.log(missingNumber([9, 6, 4, 2, 3, 5, 7, 0, 1]));
