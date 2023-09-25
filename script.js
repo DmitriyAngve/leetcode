@@ -344,13 +344,13 @@ console.log(missingNumber([3, 0, 1]));
 var missingNumber = function (nums) {
   const arr = nums.sort((a, b) => a - b);
   let left = 0;
-  let rigth = nums.length - 1;
-  while (left <= rigth) {
-    const middle = Math.floor((left + rigth) / 2);
+  let right = nums.length - 1;
+  while (left <= right) {
+    const middle = Math.floor((left + right) / 2);
     if (arr[middle] === middle) {
       left = middle + 1;
     } else {
-      rigth = middle - 1;
+      right = middle - 1;
     }
   }
   return left;
@@ -364,6 +364,7 @@ console.log(missingNumber([9, 6, 4, 2, 3, 5, 7, 0, 1]));
 /*
 Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.
 */
+/*
 var search = function (nums, target) {
   let left = 0;
   let right = nums.length - 1;
@@ -385,3 +386,43 @@ var search = function (nums, target) {
 };
 
 console.log(search([-1, 0, 3, 5, 9, 12], 9));
+*/
+
+// #4
+/*
+Given an array nums sorted in non-decreasing order, return the maximum between the number of positive integers and the number of negative integers.
+    In other words, if the number of positive integers in nums is pos and the number of negative integers is neg, then return the maximum of pos and neg.
+Note that 0 is neither positive nor negative.
+*/
+var maximumCount = function (nums) {
+  return Math.max(upper(nums), lower(nums));
+};
+
+// binary
+function upper(nums) {
+  if (nums[0] >= 0) return 0;
+  let left = 0,
+    right = nums.length - 1;
+  while (left < right) {
+    let mid = Math.ceil((left + right) / 2);
+    if (nums[mid] < 0) left = mid;
+    else right = mid - 1;
+  }
+  return left + 1;
+}
+
+function lower(nums) {
+  if (nums[nums.length - 1] <= 0) return 0;
+  let left = 0,
+    right = nums.length - 1;
+  while (left < right) {
+    let mid = Math.floor((left + right) / 2);
+    if (nums[mid] > 0) right = mid;
+    else left = mid + 1;
+  }
+  return nums.length - left;
+}
+
+console.log(maximumCount([5, 20, 66, 1314]));
+console.log(maximumCount([-3, -2, -1, 0, 0, 1, 2]));
+console.log(maximumCount([-2, -1, -1, 1, 2, 3]));
