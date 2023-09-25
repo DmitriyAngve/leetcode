@@ -394,6 +394,7 @@ Given an array nums sorted in non-decreasing order, return the maximum between t
     In other words, if the number of positive integers in nums is pos and the number of negative integers is neg, then return the maximum of pos and neg.
 Note that 0 is neither positive nor negative.
 */
+/*
 var maximumCount = function (nums) {
   return Math.max(upper(nums), lower(nums));
 };
@@ -426,3 +427,52 @@ function lower(nums) {
 console.log(maximumCount([5, 20, 66, 1314]));
 console.log(maximumCount([-3, -2, -1, 0, 0, 1, 2]));
 console.log(maximumCount([-2, -1, -1, 1, 2, 3]));
+*/
+
+// #5
+/*
+You are given an array of characters letters that is sorted in non-decreasing order, and a character target. There are at least two different characters in letters.
+
+Return the smallest character in letters that is lexicographically greater than target. If such a character does not exist, return the first character in letters.
+Example 1:
+
+Input: letters = ["c","f","j"], target = "a"
+Output: "c"
+Explanation: The smallest character that is lexicographically greater than 'a' in letters is 'c'.
+
+Example 2:
+
+Input: letters = ["c","f","j"], target = "c"
+Output: "f"
+Explanation: The smallest character that is lexicographically greater than 'c' in letters is 'f'.
+
+Example 3:
+
+Input: letters = ["x","x","y","y"], target = "z"
+Output: "x"
+Explanation: There are no characters in letters that is lexicographically greater than 'z' so we return letters[0].
+
+*/
+var nextGreatestLetter = function (letters, target) {
+  if (letters[0] > target || target >= letters[letters.length - 1]) {
+    return letters[0];
+  }
+
+  let left = 0;
+  let right = letters.length - 1;
+
+  while (left < right) {
+    const middle = Math.floor((right + left) / 2);
+
+    if (letters[middle] <= target) {
+      left = middle + 1;
+    } else if (letters[middle] > target) {
+      right = middle;
+    }
+  }
+  return letters[left];
+};
+
+console.log(nextGreatestLetter(["c", "f", "j"], "a"));
+console.log(nextGreatestLetter(["c", "f", "j"], "c"));
+console.log(nextGreatestLetter(["x", "x", "y", "y"], "z"));
