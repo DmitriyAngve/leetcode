@@ -548,6 +548,7 @@ console.log(findKthPositive([1, 2, 3, 4], 2));
 Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
 You must write an algorithm with O(log n) runtime complexity.
 */
+/*
 var searchInsert = function (nums, target) {
   let left = 0;
   let right = nums.length - 1;
@@ -574,3 +575,63 @@ var searchInsert = function (nums, target) {
 console.log(searchInsert([1, 3, 5, 6], 5));
 console.log(searchInsert([1, 3, 5, 6], 2));
 console.log(searchInsert([1, 3, 5, 6], 7));
+*/
+
+// #9
+/*
+You are given an m x n binary matrix mat of 1's (representing soldiers) and 0's (representing civilians). The soldiers are positioned in front of the civilians. That is, all the 1's will appear to the left of all the 0's in each row.
+A row i is weaker than a row j if one of the following is true:
+
+    The number of soldiers in row i is less than the number of soldiers in row j.
+    Both rows have the same number of soldiers and i < j.
+Return the indices of the k weakest rows in the matrix ordered from weakest to strongest.
+Example 1:
+Input: mat = 
+[[1,1,0,0,0],
+ [1,1,1,1,0],
+ [1,0,0,0,0],
+ [1,1,0,0,0],
+ [1,1,1,1,1]], 
+k = 3
+Output: [2,0,3]
+Explanation: 
+The number of soldiers in each row is: 
+- Row 0: 2 
+- Row 1: 4 
+- Row 2: 1 
+- Row 3: 2 
+- Row 4: 5 
+The rows ordered from weakest to strongest are [2,0,3,1,4].
+*/
+var kWeakestRows = function (mat, k) {
+  const getPower = (row) => {
+    let res = 0;
+    for (const num of row) {
+      if (num === 0) {
+        return res;
+      }
+      res++;
+    }
+    return res;
+  };
+  let resRows = {};
+  mat.forEach((row, idx) => {
+    resRows[idx] = getPower(row);
+  });
+  return Object.keys(resRows)
+    .sort((a, b) => resRows[a] - resRows[b])
+    .slice(0, k);
+};
+
+console.log(
+  kWeakestRows(
+    [
+      [1, 1, 0, 0, 0],
+      [1, 1, 1, 1, 0],
+      [1, 0, 0, 0, 0],
+      [1, 1, 0, 0, 0],
+      [1, 1, 1, 1, 1],
+    ],
+    3
+  )
+);
