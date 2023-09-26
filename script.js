@@ -487,18 +487,18 @@ A target index is an index i such that nums[i] == target.
 
 Return a list of the target indices of nums after sorting nums in non-decreasing order. If there are no target indices, return an empty list. The returned list must be sorted in increasing order.
 */
-
+/*
 function binarySearch(lists, sorted, low, high, target) {
-  if (low > high) return;
+  if (low > high) return; // базовый случай рекурсии
 
-  const mid = low + Math.floor((high - low) / 2);
+  const mid = low + Math.floor((high - low) / 2); // середина списка
 
   if (sorted[mid] === target) {
     lists.push(mid);
-  }
+  } // проверяем, если значение target равно mid, то пушим в массив
 
-  binarySearch(lists, sorted, low, mid - 1, target);
-  binarySearch(lists, sorted, mid + 1, high, target);
+  binarySearch(lists, sorted, low, mid - 1, target); // это рекурсивный вызов ф-ии, в этом случае high = mid - 1 (что означает половине диапазона в левой стороне)
+  binarySearch(lists, sorted, mid + 1, high, target); // это второй вызов с low = mid + 1 (это означает половину диапазона в правой стороне)
 }
 
 var targetIndices = function (nums, target) {
@@ -506,10 +506,36 @@ var targetIndices = function (nums, target) {
   nums.sort((a, b) => a - b);
   if (!nums.includes(target)) return [];
 
-  binarySearch(result, nums, 0, nums.length - 1, target);
+  binarySearch(result, nums, 0, nums.length - 1, target); // вызываем функцию в отсортированном массиве. Начальный диапазон поиска = 0, до индекса = num.length - 1
   return result.sort((a, b) => a - b);
 };
 
 console.log(targetIndices([1, 2, 5, 2, 3], 2));
 console.log(targetIndices([1, 2, 5, 2, 3], 3));
 console.log(targetIndices([1, 2, 5, 2, 3], 5));
+*/
+
+// #7
+/*
+Given an array arr of positive integers sorted in a strictly increasing order, and an integer k.
+
+Return the kth positive integer that is missing from this array.
+*/
+var findKthPositive = function (arr, k) {
+  let num = 1;
+  let index = 0;
+
+  // цикл будет выполняться пока k больше 0. Этот цикл будет продолжаться до тех пор, пока не будет найдено k-ое отсутсвующее число в числовом ряде положительных чисел
+  while (k > 0) {
+    // Внутри цикла проверяем, если значение в массиве arr по текущему индексу (arr[index]) равно num, то index увеличивается (что означает переход к следующему элементу в массиве). В противном случае "k" уменьшается на 1, так как одно пропущенное число уже найдено
+    arr[index] === num ? index++ : k--;
+    // На следующей итерации цикла увеличиваем значение num на 1, чтобы проверить следующее положительное число
+    num++;
+  }
+
+  // После завершения цикла возвращаем значение num-1, так как num указывает на (k+1)-ое отсутствующее положительное число
+  return num - 1;
+};
+
+console.log(findKthPositive([2, 3, 4, 7, 11], 5));
+console.log(findKthPositive([1, 2, 3, 4], 2));
