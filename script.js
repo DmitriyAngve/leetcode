@@ -521,6 +521,7 @@ Given an array arr of positive integers sorted in a strictly increasing order, a
 
 Return the kth positive integer that is missing from this array.
 */
+/*
 var findKthPositive = function (arr, k) {
   let num = 1;
   let index = 0;
@@ -539,3 +540,37 @@ var findKthPositive = function (arr, k) {
 
 console.log(findKthPositive([2, 3, 4, 7, 11], 5));
 console.log(findKthPositive([1, 2, 3, 4], 2));
+*/
+
+// #8
+/*
+35. Search Insert Position
+Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
+You must write an algorithm with O(log n) runtime complexity.
+*/
+var searchInsert = function (nums, target) {
+  let left = 0;
+  let right = nums.length - 1;
+
+  while (left <= right) {
+    const middle = Math.floor((left + right) / 2);
+
+    if (nums[middle] === target) {
+      return middle;
+    }
+
+    if (nums[middle] < target) {
+      left = middle + 1;
+    }
+
+    if (nums[middle] > target) {
+      right = middle - 1;
+    }
+  }
+
+  return left;
+};
+
+console.log(searchInsert([1, 3, 5, 6], 5));
+console.log(searchInsert([1, 3, 5, 6], 2));
+console.log(searchInsert([1, 3, 5, 6], 7));
