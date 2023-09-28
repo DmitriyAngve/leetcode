@@ -725,6 +725,7 @@ Example 3:
 Input: nums = [1]
 Output: 1
 */
+/*
 var singleNumber = function (nums) {
   const ht = {};
 
@@ -736,6 +737,22 @@ var singleNumber = function (nums) {
   for (const key in ht) {
     if (ht[key] === 1) {
       return key;
+    }
+  }
+};
+*/
+
+var singleNumber = function (nums) {
+  for (let i = 0; i < nums.length; i++) {
+    let duplicate = false;
+    for (let j = 0; j < nums.length; j++) {
+      if (i !== j && nums[i] === nums[j]) {
+        duplicate = true;
+        break;
+      }
+    }
+    if (!duplicate) {
+      return nums[i];
     }
   }
 };
