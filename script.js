@@ -676,7 +676,7 @@ var sortArrayByParity = function (nums) {
 
 
 */
-
+/*
 // SOLUTION 2
 var sortArrayByParity = function (nums) {
   // Инициализация указателей left и right.
@@ -709,3 +709,37 @@ var sortArrayByParity = function (nums) {
 };
 
 console.log(sortArrayByParity([3, 1, 2, 4]));
+*/
+
+//
+/*
+Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
+You must implement a solution with a linear runtime complexity and use only constant extra space.
+Example 1:
+Input: nums = [2,2,1]
+Output: 1
+Example 2:
+Input: nums = [4,1,2,1,2]
+Output: 4
+Example 3:
+Input: nums = [1]
+Output: 1
+*/
+var singleNumber = function (nums) {
+  const ht = {};
+
+  for (const num of nums) {
+    ht[num] = ht[num] + 1 || 1;
+  }
+  console.log(ht);
+
+  for (const key in ht) {
+    if (ht[key] === 1) {
+      return key;
+    }
+  }
+};
+
+console.log(singleNumber([2, 2, 1]));
+console.log(singleNumber([2, 2, 3, 3, 1]));
+console.log(singleNumber([4, 1, 2, 1, 2]));
