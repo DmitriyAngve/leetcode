@@ -603,6 +603,7 @@ The number of soldiers in each row is:
 - Row 4: 5 
 The rows ordered from weakest to strongest are [2,0,3,1,4].
 */
+/*
 var kWeakestRows = function (mat, k) {
   const getPower = (row) => {
     let res = 0;
@@ -635,3 +636,76 @@ console.log(
     3
   )
 );
+*/
+
+// 905 Sort Array By Parity
+/*
+Given an integer array nums, move all the even integers at the beginning of the array followed by all the odd integers.
+Return any array that satisfies this condition.
+Example 1:
+Input: nums = [3,1,2,4]
+Output: [2,4,3,1]
+Explanation: The outputs [4,2,3,1], [2,4,1,3], and [4,2,1,3] would also be accepted.
+Example 2:
+Input: nums = [0]
+Output: [0]
+*/
+/*
+// SOLUTION 1
+var sortArrayByParity = function (nums) {
+  let left = 0;
+  let right = nums.length - 1;
+
+  while (left < right) {
+    while (left < right && nums[left] % 2 === 0) {
+      left++; // Найдено четное число, двигаемся вправо
+    }
+
+    while (left < right && nums[right] % 2 === 1) {
+      right--; // Найдено нечетное число, двигаемся влево
+    }
+
+    if (left < right) {
+      // Меняем местами четное и нечетное число
+      [nums[left], nums[right]] = [nums[right], nums[left]];
+    }
+  }
+
+  return nums;
+};
+
+
+*/
+
+// SOLUTION 2
+var sortArrayByParity = function (nums) {
+  // Инициализация указателей left и right.
+  let left = 0;
+  let right = nums.length - 1;
+  // Вход в цикл, который будет выполняться, пока left < right.
+  while (left < right) {
+    // Проверка, является ли элемент на позиции left четным.
+    if (nums[left] % 2 == 0) {
+      left += 1; // Если четный, сдвигаем left вправо.
+    } else {
+      // Если элемент на позиции left нечетный:
+      // Проверяем, является ли элемент на позиции right четным.
+      if (nums[right] % 2 === 0) {
+        // Если правый элемент четный, меняем их местами.
+        [nums[left], nums[right]] = [nums[right], nums[left]];
+        left += 1; // Сдвигаем left вправо.
+        right -= 1; // Сдвигаем right влево.
+      } else {
+        // Если правый элемент тоже нечетный:
+        while (right > left && nums[right] % 2 == 1) {
+          right -= 1; // Ищем ближайший четный элемент, двигая right влево.
+        }
+      }
+    }
+  }
+  // Выход из цикла. Массив разделен на четные и нечетные числа.
+  // Отсортированный массив nums возвращается.
+  return nums;
+};
+
+console.log(sortArrayByParity([3, 1, 2, 4]));
