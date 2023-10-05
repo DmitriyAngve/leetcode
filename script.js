@@ -889,6 +889,7 @@ Input: nums = [2,5,1,3,4,7], n = 3
 Output: [2,3,5,4,1,7] 
 Explanation: Since x1=2, x2=5, x3=1, y1=3, y2=4, y3=7 then the answer is [2,3,5,4,1,7].
 */
+/*
 var shuffle = function (nums, n) {
   const result = [];
   for (let i = 0; i < n; i++) {
@@ -900,3 +901,42 @@ var shuffle = function (nums, n) {
 
 console.log(shuffle([2, 5, 1, 3, 4, 7], 3));
 console.log(shuffle([1, 1, 2, 2], 2));
+*/
+
+// #5
+/*
+There is a programming language with only four operations and one variable X:
+
+    ++X and X++ increments the value of the variable X by 1.
+    --X and X-- decrements the value of the variable X by 1.
+
+Initially, the value of X is 0.
+
+Given an array of strings operations containing a list of operations, return the final value of X after performing all the operations.
+
+Example 1:
+
+Input: operations = ["--X","X++","X++"]
+Output: 1
+Explanation: The operations are performed as follows:
+Initially, X = 0.
+--X: X is decremented by 1, X =  0 - 1 = -1.
+X++: X is incremented by 1, X = -1 + 1 =  0.
+X++: X is incremented by 1, X =  0 + 1 =  1.
+*/
+
+var finalValueAfterOperations = function (operations) {
+  // return operations.reduce((acc, curr) => (curr[1] === "+" ? ++acc : --acc), 0);
+
+  let count = 0;
+  for (let i of operations) {
+    if (i === "X++" || i === "++X") {
+      count++;
+    } else {
+      count--;
+    }
+  }
+  return count;
+};
+
+console.log(finalValueAfterOperations(["--X", "X++", "X++"]));
