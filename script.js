@@ -818,6 +818,7 @@ Explanation: The array ans is formed as follows:
 - ans = [nums[0],nums[1],nums[2],nums[0],nums[1],nums[2]]
 - ans = [1,2,1,1,2,1]
 */
+/*
 var getConcatenation = function (nums) {
   let ans = new Array(nums.length * 2);
   let len = nums.length;
@@ -833,3 +834,43 @@ var getConcatenation = function (nums) {
 
 console.log(getConcatenation([1, 2, 1]));
 console.log(getConcatenation([1, 3, 2, 1]));
+*/
+
+// #3
+/*
+Given an array of integers nums, return the number of good pairs.
+
+A pair (i, j) is called good if nums[i] == nums[j] and i < j.
+
+Example 1:
+
+Input: nums = [1,2,3,1,1,3]
+Output: 4
+Explanation: There are 4 good pairs (0,3), (0,4), (3,4), (2,5) 0-indexed.
+
+*/
+var numIdenticalPairs = function (nums) {
+  let hash = {};
+  let count = 0;
+  for (const num of nums) {
+    if (hash[num]) {
+      // проверяю, существует ли в объекте hash ключ с таким числом.
+      count += hash[num]; // Если существует, то увеличиваю счётчик на значение, которое уже хранится в hash. Это происходит, потому что каждый раз, когда я встречаю число, которое уже встречалось, то создаётся "хорошая пара" с каждой из предыдущих встреч этого числа.
+      hash[num] += 1; // Затем увеличиваю значение hash[num] на 1
+    } else {
+      hash[num] = 1; // Это для первого вхождения числа. Создается ключ num и устанавливается в значение 1
+    }
+  }
+  return count;
+};
+
+console.log(numIdenticalPairs([1, 2, 3, 1, 1, 3]));
+// первый элемент = 1 => {1: 1} count = 0 (нет пары)
+// второй элемент = 2 => {1: 1, 2: 1} count = 0 (нет пары)
+// третий элемент = 3 => {1: 1, 2: 1, 3: 1} count = 0 (нет пары)
+// четвертый элемент = 1 => {1: 2, 2: 1, 3: 1} count = 1 (пара у элементов с индексами 0-3)
+// пятый элемент = 1 => {1: 3, 2: 1, 3: 1} count = 3 (пара у элементов с индексами 0-3, 0-4)
+// шестой элемент = 3 {1: 3, 2: 1, 3: 2} count = 4 (пары у элементов с индексами 0-3, 0-4 и 2-5)
+
+console.log(numIdenticalPairs([1, 1, 1, 1]));
+console.log(numIdenticalPairs([1, 2, 3]));
