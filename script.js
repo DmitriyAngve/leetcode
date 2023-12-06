@@ -924,7 +924,7 @@ Initially, X = 0.
 X++: X is incremented by 1, X = -1 + 1 =  0.
 X++: X is incremented by 1, X =  0 + 1 =  1.
 */
-
+/*
 var finalValueAfterOperations = function (operations) {
   // return operations.reduce((acc, curr) => (curr[1] === "+" ? ++acc : --acc), 0);
 
@@ -940,3 +940,43 @@ var finalValueAfterOperations = function (operations) {
 };
 
 console.log(finalValueAfterOperations(["--X", "X++", "X++"]));
+*/
+
+// 06.12.2023
+
+// #1
+/*
+Given an integer array arr and a filtering function fn, return a filtered array filteredArr.
+The fn function takes one or two arguments:
+    arr[i] - number from the arr
+    i - index of arr[i]
+filteredArr should only contain the elements from the arr for which the expression fn(arr[i], i) evaluates to a truthy value. A truthy value is a value where Boolean(value) returns true.
+Please solve it without the built-in Array.filter method.
+Example 1:
+Input: arr = [0,10,20,30], fn = function greaterThan10(n) { return n > 10; }
+Output: [20,30]
+Explanation:
+const newArray = filter(arr, fn); // [20, 30]
+The function filters out values that are not greater than 10
+*/
+// FIRST
+/*
+var filter = function (arr, fn) {
+  return arr.reduce(
+    (res, el, index) => (fn(el, index) && res.push(el), res),
+    []
+  );
+};
+
+*/
+
+// SECOND
+var filter = function (arr, fn) {
+  let filterArr = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (fn(arr[i], i)) {
+      filterArr.push(arr[i]);
+    }
+  }
+  return filterArr;
+};
