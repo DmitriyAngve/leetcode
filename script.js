@@ -1075,6 +1075,8 @@ word1:  a   b   c   d
 word2:    p   q 
 merged: a p b q c   d
 */
+/*
+// FIRST
 var mergeAlternately = function (word1, word2) {
   let result = "";
   let arr1 = word1.split("");
@@ -1101,7 +1103,70 @@ var mergeAlternately = function (word1, word2) {
     return result;
   }
 };
+*/
+/*
+// SECOND
+var mergeAlternately = function (word1, word2) {
+  let merge = "";
+  // Нахожу миинмальную длину, для гарантий, что итерация будет идти по короткой строке
+  const min = Math.min(word1.length, word2.length);
+  // "i" инициализирую снаружи цикла, чтобы можно было к ней обращаться в последующих "ifesle"
+  let i;
+  for (i = 0; i < min; i++) {
+    // Конкатенация к строке "merge" символа на позиции "i" из "word1"
+    merge += word1.charAt(i);
+    // Конкатенация к строке "merge" символа на позиции "i" из "word2"
+    merge += word2.charAt(i);
+  }
+
+  // После цикла проверяю, остались ли еще неприсоединенные символы в "word1" или "word2"
+  if (min < word1.length) {
+    // если "min" меньше, чем "word1.length", то складываю уже готовый после цикла "merge" с подстрокой, начиная с индекса "i"
+    merge += word1.substring(i);
+  } else if (min < word2.length) {
+    merge += word2.substring(i);
+  }
+
+  return merge;
+};
 
 console.log(mergeAlternately("abc", "pqr"));
 console.log(mergeAlternately("ab", "pqrs"));
 console.log(mergeAlternately("abcd", "pq"));
+*/
+
+// #2
+/*
+For two strings s and t, we say "t divides s" if and only if s = t + ... + t (i.e., t is concatenated with itself one or more times).
+Given two strings str1 and str2, return the largest string x such that x divides both str1 and str2.
+
+Example 1:
+
+Input: str1 = "ABCABC", str2 = "ABC"
+Output: "ABC"
+
+Example 2:
+
+Input: str1 = "ABABAB", str2 = "ABAB"
+Output: "AB"
+
+Example 3:
+
+Input: str1 = "LEET", str2 = "CODE"
+Output: ""
+*/
+var gcdOfStrings = function (str1, str2) {
+  // Проверяю строки, если условие не выполняется, то это значит, что строки не имеют общего префикса и не могут быть делителями друг друга
+  if (str1 + str2 !== str2 + str1) return "";
+
+  // Инициализирую функцию НОД, она находит наибольший общий делитель для двух чисел. В моем случае числами будут длины строк. Функция использует рукурсивный метод Евклида.
+  const gcd = (a, b) => (0 === b ? a : gcd(b, a % b));
+  // Подробное объяснение метода Евклида: с помощью тернарного оператора проверяется "0 === b" (равен ли "b" нулю). Если "b" равен нулю, то возвращается значение "a". Если не равен, то рекурсивно вызывается та же функция "gcd" с аргументами "b, a % b". Смысл заключается в том, что ф-ия заменяет большее число на остаток от деления на меньшее число и продолжает этот процесс до тех пор, пока одно из чисел не станет равным 0. Когда это произойдет - второе число становится НОД
+
+  // Возвращаю подстроку с помощью функции НОД
+  return str1.substring(0, gcd(str1.length, str2.length));
+};
+
+console.log(gcdOfStrings("ABCABC", "ABC"));
+console.log(gcdOfStrings("ABABAB", "ABAB"));
+console.log(gcdOfStrings("LEET", "CODE"));
